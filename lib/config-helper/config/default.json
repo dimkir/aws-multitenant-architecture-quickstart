@@ -27,10 +27,10 @@
         "order": "Order Manager"
       },
       "table": {
-        "user": "User",
-        "order": "Order",
-        "product": "Product",
-        "tenant": "Tenant"
+        "user"   : "lmx.User.dev",
+        "order"  : "lmx.Order.dev",
+        "product": "lmx.Product.dev",
+        "tenant" : "lmx.Tenant.dev"
       },
       "userRole": {
         "systemAdmin" : "SystemAdmin",
@@ -66,10 +66,10 @@
         "order": "Order Manager"
       },
       "table": {
-        "user": "User",
-        "order": "Order",
-        "product": "Product",
-        "tenant": "Tenant"
+        "user"   : "lmx.User",
+        "order"  : "lmx.Order",
+        "product": "lmx.Product",
+        "tenant" : "lmx.Tenant"
       },
       "userRole": {
         "systemAdmin" : "SystemAdmin",

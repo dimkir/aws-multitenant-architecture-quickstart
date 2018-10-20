@@ -39,6 +39,7 @@ var tenantSchema = {
     ],
     AttributeDefinitions: [
         { AttributeName: "id", AttributeType: "S" }
+        // note that all other attributes are actually "free form" - and can be anything and do not have "hard definition"
     ],
     ProvisionedThroughput: {
         ReadCapacityUnits: 10,
@@ -47,11 +48,15 @@ var tenantSchema = {
 };
 
 app.get('/tenant/health', function(req, res) {
+    winston.debug('GET tenant/health');
+    console.log('console.log():: Reporting health ');
+
     res.status(200).send({service: 'Tenant Manager', isAlive: true});
 });
 
 // Create REST entry points
 app.get('/tenant/:id', function (req, res) {
+    winston.debug('GET tenant/:id');
     winston.debug('Fetching tenant: ' + req.params.id);
 
     // init params structure with request params
@@ -133,8 +138,11 @@ app.get('/tenants/system', function(req, res) {
 });
 
 app.post('/tenant', function(req, res) {
+    winston.debug('POST tenant');
+
     var credentials = {};
     tokenManager.getSystemCredentials(function (systemCredentials) {
+        winston.debug(systemCredentials);
         credentials = systemCredentials;
         var tenant = req.body;
         winston.debug('Creating Tenant: ' + tenant.id);

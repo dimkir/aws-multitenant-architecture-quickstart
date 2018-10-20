@@ -1,22 +1,25 @@
 {
-  "Name": "user_manager",
+  "name": "lmx-tenant-manager",
   "version": "1.0.0",
-  "description": "Provide Login for Cognito",
+  "description": "Tenant manager ported for Lambda",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no tests currently specified\""
+    "test": "echo \"Error: no tests currently specified\"",
+    "deploy:create"  : "claudia create --handler lambda.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
+    "deploy:update"  : "claudia update --set-env NODE_CONFIG_DIR=./lib/config-helper/config/" 
   },
   "dependencies": {
     "amazon-cognito-identity-js": "1.16.0",
     "amazon-cognito-js": "1.1.0",
+    "async": "latest",
     "aws-sdk": "2.24.0",
+    "aws-serverless-express": "3.3.5",
     "body-parser": "latest",
     "config": "1.25.1",
     "express": "latest",
-    "winston": "latest",
     "jwt-decode": "latest",
     "request": "^2.81.0",
-    "async": "latest"
+    "winston": "latest"
   },
   "author": "Amazon Web Services",
   "contributors": [

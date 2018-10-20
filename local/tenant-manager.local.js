@@ -1,4 +1,4 @@
-const app  = require('./server');
+const app  = require('../functions/tenant-manager');
 // @ts-ignore
 const { $configuration:  configuration } = app;
  

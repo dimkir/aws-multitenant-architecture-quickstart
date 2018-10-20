@@ -6,14 +6,14 @@ const bodyParser = require('body-parser');
 //Configure AWS SDK
 const AWS = require('aws-sdk');
 //Configure Environment
-const configModule = require('./lib/config-helper/config.js');
+const configModule = require('../lib/config-helper/config.js');
 var configuration = configModule.configure(process.env.NODE_ENV);
 //Configure Logging
 const winston = require('winston');
 winston.level = configuration.loglevel;
 //Include Custom Modules
-const tokenManager = require('./lib/token-manager/token-manager.js');
-const DynamoDBHelper = require('./lib/dynamodb-helper/dynamodb-helper.js');
+const tokenManager = require('../lib/token-manager/token-manager.js');
+const DynamoDBHelper = require('../lib/dynamodb-helper/dynamodb-helper.js');
 
 // Configure AWS Region
 AWS.config.update({region: configuration.aws_region});

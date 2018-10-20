@@ -2,11 +2,14 @@
   "name": "lmx-tenant-manager",
   "version": "1.0.0",
   "description": "Tenant manager ported for Lambda",
-  "main": "server.js",
+  "main": "local/tenant-manager.local.js",
   "scripts": {
     "test": "echo \"Error: no tests currently specified\"",
-    "deploy:create"  : "claudia create --handler lambda.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
-    "deploy:update"  : "claudia update --set-env NODE_CONFIG_DIR=./lib/config-helper/config/" 
+    "XXXdeploy:create"  : "claudia create --config tenant-manager2.claudia.json --name lmx-tenant-manager2  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
+    "XXXdeploy:remove"  : "claudia destroy --config tenant-manager2.claudia.json",
+    "deploy:create"  : "claudia create --name lmx-tenant-manager  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
+    "deploy:update"  : "claudia update --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
+    "deploy:remove"  : "claudia destroy --config claudia-config/tenant-manager2.json"
   },
   "dependencies": {
     "amazon-cognito-identity-js": "1.16.0",
@@ -19,6 +22,7 @@
     "express": "latest",
     "jwt-decode": "latest",
     "request": "^2.81.0",
+    "uuid": "3.0.1",    
     "winston": "latest"
   },
   "author": "Amazon Web Services",

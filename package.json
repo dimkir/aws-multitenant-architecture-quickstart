@@ -5,22 +5,33 @@
   "main": "local/tenant-manager.local.js",
   "scripts": {
     "test": "echo \"Error: no tests currently specified\"",
+    
+    "tenant-registration:create"  : "claudia create  --config tenant-registration.claudia.json --name lmx-tenant-registration  --handler lambda/tenant-registration.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
+    "tenant-registration:update"  : "claudia update  --config tenant-registration.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
+    "tenant-registration:remove"  : "claudia destroy --config tenant-registration.claudia.json",
+
+    "tenant-manager:create"  : "claudia create  --config tenant-manager.claudia.json --name lmx-tenant-manager  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
+    "tenant-manager:update"  : "claudia update  --config tenant-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
+    "tenant-manager:remove"  : "claudia destroy --config tenant-manager.claudia.json",
+    
+    
     "XXXdeploy:create"  : "claudia create --config tenant-manager2.claudia.json --name lmx-tenant-manager2  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
     "XXXdeploy:remove"  : "claudia destroy --config tenant-manager2.claudia.json",
-    "deploy:create"  : "claudia create --name lmx-tenant-manager  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
-    "deploy:update"  : "claudia update --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
-    "deploy:remove"  : "claudia destroy --config claudia-config/tenant-manager2.json"
+    "XXdeploy:create"  : "claudia create --name lmx-tenant-manager  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
+    "XXdeploy:update"  : "claudia update --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
+    "XXdeploy:remove"  : "claudia destroy"
   },
   "dependencies": {
     "amazon-cognito-identity-js": "1.16.0",
     "amazon-cognito-js": "1.1.0",
-    "async": "latest",
+    "async": "2.4.1",
     "aws-sdk": "2.24.0",
     "aws-serverless-express": "3.3.5",
     "body-parser": "latest",
     "config": "1.25.1",
     "express": "latest",
     "jwt-decode": "latest",
+    "randomstring": "1.1.5",
     "request": "^2.81.0",
     "uuid": "3.0.1",    
     "winston": "latest"

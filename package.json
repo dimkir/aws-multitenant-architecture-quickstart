@@ -17,6 +17,10 @@
     "user-manager:create"  : "claudia create  --config user-manager.claudia.json --name lmx-user-manager  --handler lambda/user-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
     "user-manager:update"  : "claudia update  --config user-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
     "user-manager:remove"  : "claudia destroy --config user-manager.claudia.json",
+
+    "auth-manager:create"  : "claudia create  --config auth-manager.claudia.json --name lmx-auth-manager  --handler lambda/auth-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
+    "auth-manager:update"  : "claudia update  --config auth-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
+    "auth-manager:remove"  : "claudia destroy --config auth-manager.claudia.json",
     
         
     
@@ -36,6 +40,8 @@
     "config": "1.25.1",
     "express": "latest",
     "jwt-decode": "latest",
+    "jsonwebtoken": "7.3.0",
+    "jwk-to-pem": "1.2.6",    
     "randomstring": "1.1.5",
     "request": "^2.81.0",
     "uuid": "3.0.1",    

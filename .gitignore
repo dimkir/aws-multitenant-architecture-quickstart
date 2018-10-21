@@ -5,3 +5,8 @@ claudia.json
 *.1.*
 *.2.*
 *.3.*
+
+
+# Claudia deployment configuration
+claudia.json
+*.claudia.json

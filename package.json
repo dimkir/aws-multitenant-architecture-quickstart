@@ -13,7 +13,12 @@
     "tenant-manager:create"  : "claudia create  --config tenant-manager.claudia.json --name lmx-tenant-manager  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
     "tenant-manager:update"  : "claudia update  --config tenant-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
     "tenant-manager:remove"  : "claudia destroy --config tenant-manager.claudia.json",
+
+    "user-manager:create"  : "claudia create  --config user-manager.claudia.json --name lmx-user-manager  --handler lambda/user-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
+    "user-manager:update"  : "claudia update  --config user-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
+    "user-manager:remove"  : "claudia destroy --config user-manager.claudia.json",
     
+        
     
     "XXXdeploy:create"  : "claudia create --config tenant-manager2.claudia.json --name lmx-tenant-manager2  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
     "XXXdeploy:remove"  : "claudia destroy --config tenant-manager2.claudia.json",

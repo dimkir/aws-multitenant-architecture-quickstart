@@ -10,6 +10,11 @@
     "tenant-registration:update"  : "claudia update  --config tenant-registration.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
     "tenant-registration:remove"  : "claudia destroy --config tenant-registration.claudia.json",
 
+    "system-registration:create"  : "claudia create  --config system-registration.claudia.json --name lmx-system-registration  --handler lambda/system-registration.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
+    "system-registration:update"  : "claudia update  --config system-registration.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
+    "system-registration:remove"  : "claudia destroy --config system-registration.claudia.json",
+
+
     "tenant-manager:create"  : "claudia create  --config tenant-manager.claudia.json --name lmx-tenant-manager  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
     "tenant-manager:update"  : "claudia update  --config tenant-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
     "tenant-manager:remove"  : "claudia destroy --config tenant-manager.claudia.json",
@@ -21,7 +26,9 @@
     "auth-manager:create"  : "claudia create  --config auth-manager.claudia.json --name lmx-auth-manager  --handler lambda/auth-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
     "auth-manager:update"  : "claudia update  --config auth-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
     "auth-manager:remove"  : "claudia destroy --config auth-manager.claudia.json",
+
     
+
     "product-manager:create"  : "claudia create  --config product-manager.claudia.json --name lmx-product-manager  --handler lambda/product-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
     "product-manager:update"  : "claudia update  --config product-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
     "product-manager:remove"  : "claudia destroy --config product-manager.claudia.json",

@@ -26,6 +26,10 @@
     "product-manager:update"  : "claudia update  --config product-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
     "product-manager:remove"  : "claudia destroy --config product-manager.claudia.json",
     
+    "order-manager:create"  : "claudia create  --config order-manager.claudia.json --name lmx-order-manager  --handler lambda/order-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
+    "order-manager:update"  : "claudia update  --config order-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
+    "order-manager:remove"  : "claudia destroy --config order-manager.claudia.json",
+    
 
     
     

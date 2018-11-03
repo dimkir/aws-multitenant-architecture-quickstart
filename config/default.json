@@ -3,19 +3,20 @@
     "dev": {
       "protocol": "http://",
       "domain": "127.0.0.1",
-      "region": "",
+      "region": "us-west-2",
       "aws_account":"",
       "port": {
-        "auth": 3000,
-        "user": 3001,
-        "tenant": 3003,
-        "reg": 3004,
-        "sys": 3011,
-        "product": 3006,
-        "order": 3015
+        "auth": "3001",
+        "user": "3001",
+        "tenant": "3001",
+        "reg": "3001",
+        "sys": "3001",
+        "product": "3001",
+        "order": "3001"
       },
         "role": {
-          "sns":""
+          "sns":"arn:aws:iam::403288089139:role/SNSRole-ForSaasQuickstartOnLambda",
+          "xsns":"arn:aws:iam::403288089139:role/SaaS-identity-with-Cognito-IdentityStack-1-SNSRole-2PW9D9V7WQI"
         },
       "name": {
         "auth": "Authentication Manager",

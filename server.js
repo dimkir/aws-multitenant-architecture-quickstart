@@ -78,6 +78,7 @@ require('./functions/system-registration')({app, configuration, winston, request
 require('./functions/tenant-registration')({app, configuration, winston, request});
 
 // L3
+require('./functions/order-manager')({app, configuration, winston});
 
 
 module.exports = app;

@@ -1,5 +1,5 @@
 node_modules/
-claudia.json
+.tmp/
 
 *.0.*
 *.1.*

@@ -6,11 +6,12 @@ const server = require('./server');
 const listEndpoints = require('express-list-endpoints');
 const listRoutes = require('express-list-routes');
 
-const PORT = 8087;
+const PORT = 3001;
 
 
 
-console.log(JSON.stringify(listEndpoints(server), null,2));
+console.log(listEndpoints(server));
+// console.log(JSON.stringify(listEndpoints(server), null,2));
 
 // console.log(listRoutes(null, 'API:', server));
 

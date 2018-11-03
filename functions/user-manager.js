@@ -1,49 +1,36 @@
 'use strict';
 
+module.exports = function({ app, configuration, winston }){
+
+
 // Declare dependencies
-const express = require('express');
-const bodyParser = require('body-parser');
-const AWS = require('aws-sdk');
-const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-const request = require('request');
-const winston = require('winston');
+// const AWS = require('aws-sdk');
+// const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+// const request = require('request');
 const async = require('async');
 
-// Configure Environment
-const configModule = require('../lib/config-helper/config.js');
-var configuration = configModule.configure(process.env.NODE_ENV);
 // Declare shared modules
 const tokenManager = require('../lib/token-manager/token-manager.js');
 const DynamoDBHelper = require('../lib/dynamodb-helper/dynamodb-helper.js');
 const cognitoUsers = require('../lib/cognito-user.js');
 
 
-// Init the winston log level
-winston.level = configuration.loglevel;
+// those two vars don't seem to be used anywhere below in the module
+// //Variables that are provided through a token
+// var bearerToken = '';
+// var tenantId = '';
 
-//Variables that are provided through a token
-var bearerToken = '';
-var tenantId = '';
 
-// instantiate application
-var app = express();
-
-// configure middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Origin, X-Amz-Date, Authorization, X-Api-Key, X-Amz-Security-Token, Access-Control-Allow-Headers, X-Requested-With, Access-Control-Allow-Origin");
-    bearerToken = req.get('Authorization');
-    if (bearerToken) {
-        tenantId = tokenManager.getTenantId(req);
-    }
-    next();
-});
+// app.use(function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+//     res.header("Access-Control-Allow-Headers", "Content-Type, Origin, X-Amz-Date, Authorization, X-Api-Key, X-Amz-Security-Token, Access-Control-Allow-Headers, X-Requested-With, Access-Control-Allow-Origin");
+//     // bearerToken = req.get('Authorization');
+//     // if (bearerToken) {
+//     //     tenantId = tokenManager.getTenantId(req);
+//     // }
+//     next();
+// });
 
 var userSchema = {
     TableName : configuration.table.user,
@@ -329,6 +316,7 @@ app.post('/user/system', function (req, res) {
             provisionAdminUserWithRoles(user, credentials, configuration.userRole.systemAdmin, configuration.userRole.systemUser,
                 function (err, result) {
                     if (err) {
+                        winston.error(err);
                         res.status(400).send("Error provisioning system admin user");
                     }
                     else {
@@ -741,7 +729,7 @@ function lookupUserPoolData(credentials, userId, tenantId, isSystemContext, call
         // get the item from the database
         dynamoHelper.query(searchParams, credentials, function (err, users) {
             if (err) {
-                winston.error('Error getting user: ' + err.message);
+                winston.error('lookupUserPoolData():: Error getting user: ' + err.message);
                 callback(err);
             }
             else {
@@ -825,7 +813,8 @@ function getUserPoolIdFromRequest(req) {
     return userPoolId;
 };
 
+    return app;
 
-app.$configuration = configuration;
+}
 
-module.exports = app;
+

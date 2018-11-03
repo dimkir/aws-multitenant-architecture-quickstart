@@ -1,35 +1,17 @@
 'use strict';
 
-// Configure Express
-const express = require('express');
-const bodyParser = require('body-parser');
+
+module.exports = function({app, configuration, winston}){
+
 //Configure AWS SDK
 const AWS = require('aws-sdk');
-//Configure Environment
-const configModule = require('../lib/config-helper/config.js');
-var configuration = configModule.configure(process.env.NODE_ENV);
-//Configure Logging
-const winston = require('winston');
-winston.level = configuration.loglevel;
+
 //Include Custom Modules
 const tokenManager = require('../lib/token-manager/token-manager.js');
 const DynamoDBHelper = require('../lib/dynamodb-helper/dynamodb-helper.js');
 
 // Configure AWS Region
 AWS.config.update({region: configuration.aws_region});
-
-// Instantiate application
-var app = express();
-
-// Configure middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Origin, X-Amz-Date, Authorization, X-Api-Key, X-Amz-Security-Token, Access-Control-Allow-Headers, X-Requested-With, Access-Control-Allow-Origin");
-    next();
-});
 
 // Create a schema
 var tenantSchema = {
@@ -257,7 +239,5 @@ app.delete('/tenant/:id', function(req, res) {
     });
 });
 
-
-app.$configuration = configuration;
-
-module.exports = app;
+    return app;
+}

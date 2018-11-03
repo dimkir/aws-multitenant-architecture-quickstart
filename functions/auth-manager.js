@@ -18,6 +18,7 @@ const tokenManager = require('../lib/token-manager/token-manager.js');
 
     // process login request
     app.post('/auth', function (req, res) {
+        winston.debug(`POST /auth`);
         var user = req.body;
 
         tokenManager.getUserPool(user.userName, function (error, userPoolLookup) {
@@ -40,9 +41,11 @@ const tokenManager = require('../lib/token-manager/token-manager.js');
                     Pool: userPool
                 };
                 // init Cognito auth details with auth data
-                var authenticationDetails = new AWS.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
+                var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+                // var authenticationDetails = new AWS.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
                 // authenticate user to in Cognito user pool
-                var cognitoUser = new AWS.CognitoIdentityServiceProvider.CognitoUser(userData);
+                var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+                // var cognitoUser = new AWS.CognitoIdentityServiceProvider.CognitoUser(userData);
 
                 cognitoUser.authenticateUser(authenticationDetails, {
                     onSuccess: function (result) {

@@ -1,42 +1,13 @@
 'use strict';
 
+
+module.exports = function({app, configuration, winston, request}){
+
 // Declare library dependencies
-const express = require('express');
-const bodyParser = require('body-parser');
 const uuidV4 = require('uuid/v4');
-const request = require('request');
-
-//Configure Environment
-const configModule = require('../lib/config-helper/config.js');
-var configuration = configModule.configure(process.env.NODE_ENV);
-
-//Configure Logging
-const winston = require('winston');
-winston.level = configuration.loglevel;
 
 var tenantURL   = configuration.url.tenant;
 var userURL   = configuration.url.user;
-
-// Instantiate application
-var app = express();
-
-// Configure middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Origin, X-Amz-Date, Authorization, X-Api-Key, X-Amz-Security-Token, Access-Control-Allow-Headers, X-Requested-With, Access-Control-Allow-Origin");
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-        res.send(200);
-    }
-    else {
-        next();
-    }
-});
 
 /**
  * Register a new tenant
@@ -209,7 +180,6 @@ app.get('/reg/health', function(req, res) {
     res.status(200).send({service: 'Tenant Registration', isAlive: true});
 });
 
+    return app;
 
-
-app.$configuration = configuration;
-module.exports = app;
+}

@@ -7,10 +7,10 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/server.local.js",
+            "name": "Launch local",
+            "program": "${workspaceFolder}/local.js",
             "env": {
-                "NODE_CONFIG_DIR": "./lib/config-helper/config/"
+                "NODE_CONFIG_DIR": "${workspaceFolder}/config/"
             }
         }
     ]

@@ -26,17 +26,13 @@
     "order-manager:create": "claudia create  --config order-manager.claudia.json --name lmx-order-manager  --handler lambda/order-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
     "order-manager:update": "claudia update  --config order-manager.claudia.json --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
     "order-manager:remove": "claudia destroy --config order-manager.claudia.json",
-
-
     "XXXdeploy:create": "claudia create --config tenant-manager2.claudia.json --name lmx-tenant-manager2  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
     "XXXdeploy:remove": "claudia destroy --config tenant-manager2.claudia.json",
     "XXdeploy:create": "claudia create --name lmx-tenant-manager  --handler lambda/tenant-manager.handler --set-env NODE_CONFIG_DIR=./lib/config-helper/config/  --deploy-proxy-api --region us-west-2",
     "XXdeploy:update": "claudia update --set-env NODE_CONFIG_DIR=./lib/config-helper/config/",
     "XXdeploy:remove": "claudia destroy",
-
     "main:create": "claudia create --name lmx-main  --handler lambda.handler --set-env NODE_CONFIG_DIR=./config/  --deploy-proxy-api --region us-west-2",
-    "XXXXdeploy:update": "claudia update --set-env NODE_CONFIG_DIR=./lib/config-helper/config/"
-
+    "main:update": "claudia update --set-env-from-json ./claudia-env.json"
   },
   "dependencies": {
     "amazon-cognito-identity-js": "1.16.0",
@@ -53,6 +49,7 @@
     "jwt-decode": "latest",
     "randomstring": "1.1.5",
     "request": "^2.81.0",
+    "request-debug": "0.2.0",
     "uuid": "3.0.1",
     "winston": "latest"
   },

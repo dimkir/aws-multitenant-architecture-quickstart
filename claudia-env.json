@@ -1,0 +1,12 @@
+{
+    "NODE_CONFIG_DIR": "./config/",
+    "NODE_ENV": "production",
+    "XXXAWS_REGION": "us-west-2",
+    "SERVICE_URL": "c8jis7eo51.execute-api.us-west-2.amazonaws.com/latest",
+    "SNS_ROLE_ARN": "arn:aws:iam::403288089139:role/SaaS-identity-with-Cognito-IdentityStack-1-SNSRole-2PW9D9V7WQI",
+    "AWS_ACCOUNT_ID": "403288089139",
+    "USER_TABLE": "lmx.User.dev",
+    "TENANT_TABLE" : "lmx.Tenant.dev",
+    "PRODUCT_TABLE": "lmx.Product.dev",
+    "ORDER_TABLE": "lmx.Order.dev"
+}

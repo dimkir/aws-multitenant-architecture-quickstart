@@ -1,43 +1,31 @@
 'use strict';
 
-// Declare library dependencies
-const express = require('express');
-const bodyParser = require('body-parser');
 const uuidV4 = require('uuid/v4');
-const request = require('request');
 
-//Configure Environment
-const configModule = require('../lib/config-helper/config.js');
-var configuration = configModule.configure(process.env.NODE_ENV);
+module.exports = function({ app, configuration, winston, request }){
 
-//Configure Logging
-const winston = require('winston');
-winston.level = configuration.loglevel;
+
 
 var tenantURL   = configuration.url.tenant;
 var userURL   = configuration.url.user;
 
 
-// Instantiate application
-var app = express();
+// TODO: do we really need to intercept OPTIONS here?
+// TODO: do we really need to intercept OPTIONS here?
+// TODO: do we really need to intercept OPTIONS here?
 
-// Configure middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Origin, X-Amz-Date, Authorization, X-Api-Key, X-Amz-Security-Token, Access-Control-Allow-Headers, X-Requested-With, Access-Control-Allow-Origin");
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-        res.send(200);
-    }
-    else {
-        next();
-    }
-});
+// app.use(function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+//     res.header("Access-Control-Allow-Headers", "Content-Type, Origin, X-Amz-Date, Authorization, X-Api-Key, X-Amz-Security-Token, Access-Control-Allow-Headers, X-Requested-With, Access-Control-Allow-Origin");
+//     // intercept OPTIONS method
+//     if ('OPTIONS' == req.method) {
+//         res.send(200);
+//     }
+//     else {
+//         next();
+//     }
+// });
 
 
 
@@ -295,8 +283,5 @@ app.get('/sys/health', function(req, res) {
     res.status(200).send({service: 'Tenant Registration', isAlive: true});
 });
 
-
-
-
-app.$configuration = configuration;
-module.exports = app;
+    return app;
+}

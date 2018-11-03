@@ -1,42 +1,30 @@
 'use strict';
 
-//  Express
-const express = require('express');
-const bodyParser = require('body-parser');
+module.exports = function({app, configuration, winston}){
 
 // UUID Generator Module
 const uuidV4 = require('uuid/v4');
-
-// Configure Environment
-const configModule = require('../lib/config-helper/config.js');
-var configuration = configModule.configure(process.env.NODE_ENV);
-
-// Configure Logging
-const winston = require('winston');
-winston.level = configuration.loglevel;
 
 // Include Custom Modules
 const tokenManager = require('../lib/token-manager/token-manager.js');
 const DynamoDBHelper = require('../lib/dynamodb-helper/dynamodb-helper.js');
 
-// Instantiate application
-var app = express();
-var bearerToken = '';
-var tenantId = '';
+// var bearerToken = '';
+// var tenantId = '';
 
-// Configure middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-    bearerToken = req.get('Authorization');
-    if (bearerToken) {
-        tenantId = tokenManager.getTenantId(req);
-    }
-    next();
-});
+// // Configure middleware
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+//     res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+//     // bearerToken = req.get('Authorization');
+//     // if (bearerToken) {
+//     //     tenantId = tokenManager.getTenantId(req);
+//     // }
+//     next();
+// });
 
 // Create a schema
 var productSchema = {
@@ -62,6 +50,9 @@ app.get('/product/health', function(req, res) {
 // Create REST entry points
 app.get('/product/:id', function(req, res) {
     winston.debug('Fetching product: ' + req.params.id);
+    var tenantId = req.get('Authorization') ? tokenManager.getTenantId(req) : '';
+    
+
 
     tokenManager.getCredentialsFromToken(req, function(credentials) {
         // init params structure with request params
@@ -87,6 +78,8 @@ app.get('/product/:id', function(req, res) {
 });
 
 app.get('/products', function(req, res) {
+    var tenantId = req.get('Authorization') ? tokenManager.getTenantId(req) : '';
+
     winston.debug('Fetching Products for Tenant Id: ' + tenantId);
     tokenManager.getCredentialsFromToken(req, function(credentials) {
         var searchParams = {
@@ -115,6 +108,8 @@ app.get('/products', function(req, res) {
 });
 
 app.post('/product', function(req, res) {
+    var tenantId = req.get('Authorization') ? tokenManager.getTenantId(req) : '';
+
     tokenManager.getCredentialsFromToken(req, function(credentials) {
         var product = req.body;
         product.productId = uuidV4();
@@ -137,6 +132,8 @@ app.post('/product', function(req, res) {
 });
 
 app.put('/product', function(req, res) {
+    var tenantId = req.get('Authorization') ? tokenManager.getTenantId(req) : '';
+
     winston.debug('Updating product: ' + req.body.productId);
     tokenManager.getCredentialsFromToken(req, function(credentials) {
         // init the params from the request data
@@ -191,6 +188,8 @@ app.put('/product', function(req, res) {
 
 app.delete('/product/:id', function(req, res) {
     winston.debug('Deleting product: ' + req.params.id);
+    var tenantId = req.get('Authorization') ? tokenManager.getTenantId(req) : '';
+
 
     tokenManager.getCredentialsFromToken(req, function(credentials) {
         // init parameter structure
@@ -220,6 +219,5 @@ app.delete('/product/:id', function(req, res) {
 
 
 
-
-app.$configuration = configuration;
-module.exports = app;
+    return app;
+}
